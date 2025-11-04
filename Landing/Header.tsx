@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
 import { SignInButton, SignUpButton } from '@clerk/nextjs'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/ui/button'
 import { Ghost } from 'lucide-react'
 
 const Header = () => {
