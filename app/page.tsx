@@ -5,8 +5,13 @@ import WhatToAsk from '@/Landing/WhatToAsk';
 import PricingSection from '@/Landing/PricingSection';
 import CTA from '@/Landing/CTA';
 import Footer from '@/Landing/Footer';
+import { currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
-export default function Home() {
+export default async function Home() {
+  const user =await currentUser()
+
+  if(user) redirect('/dashboard')
   return (
     <div className='min-h-screen bg-background'>
       <Header/>
