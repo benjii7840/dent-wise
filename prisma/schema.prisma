@@ -16,7 +16,7 @@ datasource db {
 
 model User {  // Changed from "user" to "User"
   id        String @id @default(cuid())
-  clearkId  String @unique 
+  clerkId  String @unique 
   email     String @unique
   firstName String?
   lastName  String?
