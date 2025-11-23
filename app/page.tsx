@@ -7,9 +7,12 @@ import CTA from '@/Landing/CTA';
 import Footer from '@/Landing/Footer';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
+import { syncUser } from '@/lib/actions/users';
 
 export default async function Home() {
   const user =await currentUser()
+
+  await syncUser();
 
   if(user) redirect('/dashboard')
   return (

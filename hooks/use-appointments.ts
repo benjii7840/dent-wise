@@ -1,7 +1,8 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { bookAppointment, getBookedTimeSlots, getAppointments as gettAppointments, getUserAppointments } from "@/lib/actions/appointments";
+import { bookAppointment, getBookedTimeSlots, getAppointments as gettAppointments, getUserAppointments,  updateAppointmentStatus } from "@/lib/actions/appointments";
+import { AppointmentStatus } from "@prisma/client";
 
 export function useGetAppointments() {
   const result = useQuery({
@@ -41,4 +42,16 @@ export function useUserAppointments() {
 
 
   return result;
+}
+
+export function useUpdateAppointmentStatus() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateAppointmentStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getAppointments"] });
+    },
+    onError: (error) => console.error("Failed to update appointment:", error),
+  });
 }

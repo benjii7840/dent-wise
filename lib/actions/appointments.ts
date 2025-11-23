@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
+import { AppointmentStatus } from "@prisma/client";
 import { auth } from "@clerk/nextjs/server"
 
 
@@ -165,6 +166,20 @@ export async function bookAppointment(input: BookAppointmentInput) {
   } catch (error) {
     console.error("Error booking appointment:", error);
     throw new Error("Failed to book appointment. Please try again later.");
+  }
+}
+
+export async function updateAppointmentStatus(input: { id: string; status: AppointmentStatus }) {
+  try {
+    const appointment = await prisma.appointment.update({
+      where: { id: input.id },
+      data: { status: input.status },
+    });
+
+    return appointment;
+  } catch (error) {
+    console.error("Error updating appointment:", error);
+    throw new Error("Failed to update appointment");
   }
 }
 
